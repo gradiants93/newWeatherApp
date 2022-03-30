@@ -50,15 +50,30 @@ app.get("/", (req, res) => {
 //   }
 // });
 
-// create the POST request
-app.get("/api/weather", cors(), async (req, res) => {
-  const city = req.body.city;
-  let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+// create city POST request
+let city;
+app.post("/api/search-city", (req, res) => {
+  city = req.body.city;
+  res.redirect("/api/weather");
+});
+
+// create the GET request
+app.post("/api/weather", cors(), async (req, res) => {
+  console.log(req.body.city);
+  city = req.body.city;
+  let baseURL = `http://api.openweathermap.org/data/2.5/weather?q=`;
+  let apiID = `&units=imperial&appid=${apiKey}`;
+  const userInput = (url1, url2, city) => {
+    let newURL = url1 + city + url2;
+    return newURL;
+  };
+  const apiURL = userInput(baseURL, apiID, city);
+
   console.log(city);
 
   // change to api request/fetch thingy
   try {
-    const response = await fetch(url);
+    const response = await fetch(apiURL);
     const data = await response.json();
     console.log(data);
     res.send(data);

@@ -12,7 +12,7 @@ function Weather() {
   function getForecast(e) {
     e.preventDefault();
     // add to request body
-    fetch("/api/weather")
+    fetch("/api/weather", { method: "post", body: JSON.stringify(city) })
       .then((response) => response.json())
       .then((json) => {
         setResponseObj(json);
