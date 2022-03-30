@@ -52,9 +52,9 @@ app.get("/", (req, res) => {
 
 // create the POST request
 app.get("/api/weather", cors(), async (req, res) => {
-  // const city = req.body.city;
-  let url = `http://api.openweathermap.org/data/2.5/weather?q=seattle&units=imperial&appid=${apiKey}`;
-  // console.log(city);
+  const city = req.body.city;
+  let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+  console.log(city);
 
   // change to api request/fetch thingy
   try {

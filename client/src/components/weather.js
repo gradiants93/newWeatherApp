@@ -11,6 +11,7 @@ function Weather() {
 
   function getForecast(e) {
     e.preventDefault();
+    // add to request body
     fetch("/api/weather")
       .then((response) => response.json())
       .then((json) => {
@@ -23,17 +24,16 @@ function Weather() {
   return (
     <div className="container">
       <h2>Find Current Weather Conditions</h2>
-      <button onClick={getForecast}>Get Forecast</button>
-      {/* <form onSubmit={getForecast}>
-                <input
-                    type="text"
-                    placeholder="Enter City"
-                    maxLength="50"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    />
-                <button className={Button} type="submit">Get Forecast</button>
-            </form> */}
+      <form onSubmit={getForecast}>
+        <input
+          type="text"
+          placeholder="Enter City"
+          maxLength="50"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        />
+        <button type="submit">Get Forecast</button>
+      </form>
       <Conditions responseObj={responseObj} />
     </div>
   );
